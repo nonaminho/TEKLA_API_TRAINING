@@ -25,8 +25,8 @@ namespace BeamCreator
             Beam teklaBeam = new Beam();
             teklaBeam.StartPoint = new Tekla.Structures.Geometry3d.Point(0, 0, 0);
             teklaBeam.EndPoint = new Tekla.Structures.Geometry3d.Point(6000, 0, 0);
-            teklaBeam.Profile.ProfileString = "W250X17.9";
-            teklaBeam.Material.MaterialString = "A572-GR.50";
+            teklaBeam.Profile.ProfileString = text_Profile.Text;
+            teklaBeam.Material.MaterialString = text_Material.Text;
             teklaBeam.AssemblyNumber.StartNumber = 1000;
             teklaBeam.Class = "4";
             teklaBeam.Finish = "Oi";

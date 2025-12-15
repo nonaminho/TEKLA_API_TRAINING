@@ -1,0 +1,10 @@
+C:\Vitor-Pessoal\github.com\nonaminho\TEKLA_API_TRAINING\BeamCreator\bin\Debug\BeamCreator.exe.config
+C:\Vitor-Pessoal\github.com\nonaminho\TEKLA_API_TRAINING\BeamCreator\bin\Debug\BeamCreator.exe
+C:\Vitor-Pessoal\github.com\nonaminho\TEKLA_API_TRAINING\BeamCreator\bin\Debug\BeamCreator.pdb
+C:\Vitor-Pessoal\github.com\nonaminho\TEKLA_API_TRAINING\BeamCreator\ObjDir\AnyCPU\Debug\BeamCreator\BeamCreator.csproj.AssemblyReference.cache
+C:\Vitor-Pessoal\github.com\nonaminho\TEKLA_API_TRAINING\BeamCreator\ObjDir\AnyCPU\Debug\BeamCreator\BeamCreator.Form1.resources
+C:\Vitor-Pessoal\github.com\nonaminho\TEKLA_API_TRAINING\BeamCreator\ObjDir\AnyCPU\Debug\BeamCreator\BeamCreator.Properties.Resources.resources
+C:\Vitor-Pessoal\github.com\nonaminho\TEKLA_API_TRAINING\BeamCreator\ObjDir\AnyCPU\Debug\BeamCreator\BeamCreator.csproj.GenerateResource.cache
+C:\Vitor-Pessoal\github.com\nonaminho\TEKLA_API_TRAINING\BeamCreator\ObjDir\AnyCPU\Debug\BeamCreator\BeamCreator.csproj.CoreCompileInputs.cache
+C:\Vitor-Pessoal\github.com\nonaminho\TEKLA_API_TRAINING\BeamCreator\ObjDir\AnyCPU\Debug\BeamCreator\BeamCreator.exe
+C:\Vitor-Pessoal\github.com\nonaminho\TEKLA_API_TRAINING\BeamCreator\ObjDir\AnyCPU\Debug\BeamCreator\BeamCreator.pdb

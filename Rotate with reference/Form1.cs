@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Collections;
 using Tekla.Structures.DialogInternal;
 using Tekla.Structures.Model.UI;
+using TSMUI = Tekla.Structures.Model.UI;
 using Tekla.Structures.Model;
 using Tekla.Structures.Geometry3d;
 using T3D = Tekla.Structures.Geometry3d;
@@ -25,6 +26,12 @@ namespace Rotate_with_reference
         public Form1()
         {
             InitializeComponent();
+
+
+        }
+
+        private void button_Origem_Click(object sender, EventArgs e)
+        {
 
             T3D.Point origem = new T3D.Point();
             T3D.Point referencia = new T3D.Point();
@@ -44,16 +51,6 @@ namespace Rotate_with_reference
             textBox_DestX.Text = destino.X.ToString();
             textBox_DestY.Text = destino.Y.ToString();
             textBox_DestZ.Text = destino.Z.ToString();
-        }
-
-        private void button_Origem_Click(object sender, EventArgs e)
-        {
-
-            T3D.Point point = picker.PickPoint("Selecione o ponto de Origem");
-
-            textBox_OrigemX.Text = point.X.ToString();
-            textBox_OrigemY.Text = point.Y.ToString();
-            textBox_OrigemZ.Text = point.Z.ToString();
 
         }
 
@@ -77,34 +74,35 @@ namespace Rotate_with_reference
 
         private void button_Rotate_Click(object sender, EventArgs e)
         {
+            //Convertendo os pontos de texto para pontos T3D
             T3D.Point origem = new T3D.Point(Convert.ToDouble(textBox_OrigemX.Text), Convert.ToDouble(textBox_OrigemY.Text), Convert.ToDouble(textBox_OrigemZ.Text));
             T3D.Point refPonto = new T3D.Point(Convert.ToDouble(textBox_RefX.Text), Convert.ToDouble(textBox_RefY.Text), Convert.ToDouble(textBox_RefZ.Text));
             T3D.Point destPonto = new T3D.Point(Convert.ToDouble(textBox_DestX.Text), Convert.ToDouble(textBox_DestY.Text), Convert.ToDouble(textBox_DestZ.Text));
 
+            //Calculando os vetores dos pontos selecionados e o vetor resultante do produto vetorial (Eixo de rotação)
             Vector refVetor = new Vector(refPonto.X - origem.X, refPonto.Y - origem.Y, refPonto.Z - origem.Z);
             Vector destVetor = new Vector(destPonto.X - origem.X, destPonto.Y - origem.Y, destPonto.Z - origem.Z);
             Vector eixoRotacao = refVetor.Cross(destVetor);
             eixoRotacao.Normalize();
 
-            ModelObjectEnumerator objetos = picker.PickObjects(new Picker.PickObjectsEnum(), "Selecione os objetos para rotacionar");
+            //Picker dos objetos a serem rotacionados
+            TSMUI.ModelObjectSelector selector = new TSMUI.ModelObjectSelector();
+            ModelObjectEnumerator objetos = selector.GetSelectedObjects();
 
             double angle = refVetor.GetAngleBetween(destVetor);
             //label_angle.Text = (180 * angle / Math.PI).ToString() + " - " + objetos.GetSize().ToString();
 
-            Matrix matrizRotacao = MatrixFactory.Rotate(angle, eixoRotacao);
+            //Criando os sistemas de coordenadas para a rotação (O metodo MoveObject necessita de sistemas de coordenadas) -> Funciona tipo o move to another plane do tekla
             CoordinateSystem original = new CoordinateSystem(origem, refVetor, eixoRotacao);
             CoordinateSystem moved = new CoordinateSystem(origem, destVetor, eixoRotacao); ;
 
-            ArrayList objetosArray = new ArrayList();
+            //Iterando e movendo os objetos
             while (objetos.MoveNext())
             {
-                objetosArray.Add(objetos.Current);
+                Operation.MoveObject(objetos.Current, original, moved);
             }
 
-            foreach (ModelObject obj in objetosArray)
-            {
-                Operation.MoveObject(obj, original, moved);
-            }
+            //Atualizando o modelo
             model.CommitChanges();
         }
     }

@@ -53,7 +53,7 @@
             this.button_Origem.Name = "button_Origem";
             this.button_Origem.Size = new System.Drawing.Size(108, 23);
             this.button_Origem.TabIndex = 0;
-            this.button_Origem.Text = "Selecionar origem";
+            this.button_Origem.Text = "Selecionar pontos";
             this.button_Origem.UseVisualStyleBackColor = true;
             this.button_Origem.Click += new System.EventHandler(this.button_Origem_Click);
             // 

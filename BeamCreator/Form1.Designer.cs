@@ -60,6 +60,7 @@
             this.text_Profile.Name = "text_Profile";
             this.text_Profile.Size = new System.Drawing.Size(299, 20);
             this.text_Profile.TabIndex = 2;
+            this.text_Profile.Text = "W200X15";
             // 
             // text_Material
             // 
@@ -67,6 +68,7 @@
             this.text_Material.Name = "text_Material";
             this.text_Material.Size = new System.Drawing.Size(299, 20);
             this.text_Material.TabIndex = 4;
+            this.text_Material.Text = "A572-GR.50";
             // 
             // label2
             // 
@@ -89,6 +91,7 @@
             this.Controls.Add(this.button1);
             this.Name = "Form1";
             this.Text = "Beam Creator";
+            this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();
 

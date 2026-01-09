@@ -54,6 +54,10 @@ namespace BeamCreator
                         T3D.Point startPoint = (T3D.Point)PickedPoints[0];
                         T3D.Point finalPoint = (T3D.Point)PickedPoints[1];
 
+                        double lenght = Math.Sqrt(Math.Pow((startPoint.X - finalPoint.X), 2) +
+                            Math.Pow((startPoint.Y - finalPoint.Y), 2) +
+                            Math.Pow((startPoint.Z - finalPoint.Z), 2));
+
                         Beam teklaBeam = new Beam();
                         teklaBeam.StartPoint = startPoint;
                         teklaBeam.EndPoint = finalPoint;
@@ -63,6 +67,10 @@ namespace BeamCreator
                         teklaBeam.Class = "4";
                         teklaBeam.Finish = "Something";
                         teklaBeam.Insert();
+                        teklaBeam.SetUserProperty("comment", "Something");
+                        teklaBeam.SetUserProperty("cambering", lenght / 325);
+                            
+                        
 
                         model.CommitChanges();
                     }

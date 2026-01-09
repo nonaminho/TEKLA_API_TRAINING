@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // As informações gerais sobre um assembly são controladas por
 // conjunto de atributos. Altere estes valores de atributo para modificar as informações
 // associadas a um assembly.
-[assembly: AssemblyTitle("SplitBeam")]
+[assembly: AssemblyTitle("LineSplit")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SplitBeam")]
-[assembly: AssemblyCopyright("Copyright ©  2025")]
+[assembly: AssemblyProduct("LineSplit")]
+[assembly: AssemblyCopyright("Copyright ©  2026")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // O GUID a seguir será destinado à ID de typelib se este projeto for exposto para COM
-[assembly: Guid("cbbb4080-8b1b-442c-b1a9-e0496282449a")]
+[assembly: Guid("b6466aad-758a-4db2-9010-2db72da29578")]
 
 // As informações da versão de um assembly consistem nos quatro valores a seguir:
 //

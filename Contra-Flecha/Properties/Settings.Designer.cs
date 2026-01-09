@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SplitBeam.Properties
+namespace Contra_Flecha.Properties
 {
 
 

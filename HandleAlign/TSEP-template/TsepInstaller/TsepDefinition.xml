@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TEP Version="2.0">
+
+	<Product Id="HandleAlign" UpgradeCode="c5f056dd-c7e0-488b-8e6a-123e86564bf8" Version="1.0" Language="1033"
+		Name="Handle Align" Manufacturer="Vitor"  Description= "Alinha Handles das vigas e colunas" IconPath="%TEPDEFINITIONFILEFOLDER%\Icon.png" Type="Extension">
+		<TeklaVersions>
+			<TeklaVersion Name="2099.1"/>
+			<MinTeklaVersion Name="2018.0"/>
+			<MaxTeklaVersion Name="2099.1"/>
+		</TeklaVersions>
+	</Product>
+	 
+	<SourcePathVariables>
+		<SourcePathVariable Id="TepOutputFolder" Value="%TEPDEFINITIONFILEFOLDER%\output" Comment="This provides the location where the package builder is to save the package."/>
+		<SourcePathVariable Id="BinariesFolder" Value="%TEPDEFINITIONFILEFOLDER%\..\binaries"/>
+		<SourcePathVariable Id="SystemFolder" Value="%TEPDEFINITIONFILEFOLDER%\..\system"/>
+		<SourcePathVariable Id="BitmapsFolder" Value="%TEPDEFINITIONFILEFOLDER%\..\bitmaps"/>
+    <SourcePathVariable Id="MacrosFolder" Value="%TEPDEFINITIONFILEFOLDER%\..\macros"/>
+    </SourcePathVariables>
+
+	<TargetPathVariables>
+		<PathVariable Id="BinariesTargetDirectory" Value="%commonEnvFolder%\extensions\FERENGE\"/>
+		<PathVariable Id="BitmapsDirectory" Value="%ENVDIR%\..\bitmaps\"/>
+		<PathVariable Id="CommonAttributeFileDirectory" Value="%commonEnvFolder%\system\"/>
+    <PathVariable Id="ImpAttributeFileDirectory" Value="%usimpEnvFolder%\system\" Comment="This is for pre 2019.0. common system folder mapped in 2019 and newer."/>
+    <PathVariable Id="MetAttributeFileDirectory" Value="%usmetEnvFolder%\system\" Comment="This is for pre 2019.0. common system folder mapped in 2019 and newer."/>    
+    <PathVariable Id="CommonMacroDirectory" Value="%commonEnvFolder%\macros\"/>
+    <PathVariable Id="ImpMacroDirectory" Value="%usimpEnvFolder%\macros\" Comment="This is for pre 2019.0. common macros folder mapped in 2019 and newer."/>
+    <PathVariable Id="MetMacroDirectory" Value="%usmetEnvFolder%\macros\" Comment="This is for pre 2019.0. common macros folder mapped in 2019 and newer."/>
+	</TargetPathVariables>
+
+	<Component Id="TheExtensionComponent" Guid="64395617-9383-44bb-8541-c54b0ef65bf6">
+    <File Id="CopyBinaries" Source="%BinariesFolder%\*.*" Target="%BinariesTargetDirectory%" Recursive="yes"/>
+		<File Id="CopyImpMacros" Source="%MacrosFolder%\*.*" Target="%ImpMacroDirectory%" Recursive="yes"/>
+    <File Id="CopyMetMacros" Source="%MacrosFolder%\*.*" Target="%MetMacroDirectory%" Recursive="yes"/>
+    <File Id="CopyCommonMacros" Source="%MacrosFolder%\*.*" Target="%CommonMacroDirectory%" Recursive="yes"/>
+    <File Id="CopyBitmaps" Source="%BitmapsFolder%\*.*" Target="%BitmapsDirectory%" Recursive="yes"/>
+    <File Id="CopyCommonAttributeFiles" Source="%SystemFolder%\*.*" Target="%CommonAttributeFileDirectory%" Recursive="yes"/>
+    <File Id="CopyImpAttributeFiles" Source="%SystemFolder%\*.*" Target="%ImpAttributeFileDirectory%" Recursive="yes"/>
+    <File Id="CopyMetAttributeFiles" Source="%SystemFolder%\*.*" Target="%MetAttributeFileDirectory%" Recursive="yes"/>
+	</Component>
+
+	<Feature Id="TheExtensionFeature" Title="ExtensionFeature">
+		<ComponentRef ReferenceId="TheExtensionComponent" />
+	</Feature>
+
+ </TEP>

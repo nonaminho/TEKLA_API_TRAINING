@@ -14,10 +14,13 @@ Colar o .exe da aplicação e editar o XML
  - No XML:
    - Display Name
    - MacroFileName
+   - ItemIdString
 
 ## 3. Macros
 
 Editar o .cs para corresponder com o MacroFileName alterado acima
+ - Editar ApplicationName
 Renomear o .png com o mesmo nome
+ - 96 x 96 px
 
 ## 4. Usar o TeklaExtensionPackage.Builder

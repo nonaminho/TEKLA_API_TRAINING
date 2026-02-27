@@ -5,13 +5,11 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Tekla.Structures.Model.UI;
 using TSMUI = Tekla.Structures.Model.UI;
 using Tekla.Structures.Model;
 using Tekla.Structures.Geometry3d;
-using System.Threading;
 
 
 namespace Contra_Flecha

@@ -30,6 +30,7 @@ namespace LineSplit
             T3D.Point ponto1 = picker.PickPoint("Selecione o primeiro ponto.");
             T3D.Point ponto2 = picker.PickPoint("Selecione o segundo ponto.");
             Line cutline = new Line(ponto1, ponto2);
+            
 
             TSMUI.ModelObjectSelector selector = new TSMUI.ModelObjectSelector();
             ModelObjectEnumerator selectedObjects = selector.GetSelectedObjects();

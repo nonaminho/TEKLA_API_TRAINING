@@ -12,8 +12,9 @@ https://developer.tekla.com/doc/tekla-structures/2024/tekla-structures-20398
 ## TO-DOS
 
 1. Drawings API
-2. Relatórios e saidas automatizadas
-3. 
+2. Relatórios e saidas automatizadas (Exportações em DWG e PDF)
+3. Relatórios exportados já em XLSX
+4. 
 
 
 ## HISTORICO DE DESENVOLVIMENTO

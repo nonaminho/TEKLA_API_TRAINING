@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TEP Version="2.0">
 
-	<Product Id="HandleAlign" UpgradeCode="c5f056dd-c7e0-488b-8e6a-123e86564bf8" Version="1.0" Language="1033"
+	<Product Id="HandleAlign" UpgradeCode="c5f056dd-c7e0-488b-8e6a-123e86564bf8" Version="1.1" Language="1033"
 		Name="Handle Align" Manufacturer="Vitor"  Description= "Alinha Handles das vigas e colunas" IconPath="%TEPDEFINITIONFILEFOLDER%\Icon.png" Type="Extension">
 		<TeklaVersions>
 			<TeklaVersion Name="2099.1"/>

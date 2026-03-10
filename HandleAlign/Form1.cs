@@ -71,7 +71,7 @@ namespace HandleAlign
             }
             else
             {
-                MessageBox.Show("Objetos alinhados com sucesso.");
+                Operation.DisplayPrompt("Objetos alinhados com sucesso.");
             }
         }
 
@@ -140,60 +140,70 @@ namespace HandleAlign
             }
             else
             {
-                MessageBox.Show("Objetos alinhados com sucesso.");
+                Operation.DisplayPrompt("Objetos alinhados com sucesso.");
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            TSMUI.ModelObjectSelector selector = new TSMUI.ModelObjectSelector();
-            ModelObjectEnumerator selectedObjects = selector.GetSelectedObjects();
-
-            if (selectedObjects.GetSize() == 0)
-            {
-                MessageBox.Show("Selecione pelo menos um objeto.");
-                return;
-            }
-
-            T3D.Point ponto = picker.PickPoint("Selecione o primeiro ponto.");
-            T3D.Vector z = new Vector(0, 0, 1);
-            Line alignLine = new Line(ponto, z);
-
+            bool keepgoing = true;
             double tolerancia = textBox1.Text != "" ? Convert.ToDouble(textBox1.Text) : 10.0;
             int count = 0;
-
-            Beam viga = null;
-
-            while (selectedObjects.MoveNext())
+            while (keepgoing)
             {
-                viga = selectedObjects.Current as Beam;
-                if (viga != null)
+                try
                 {
-                    double dist1 = Distance.PointToLine(viga.StartPoint, alignLine);
-                    double dist2 = Distance.PointToLine(viga.EndPoint, alignLine);
+                    TSMUI.ModelObjectSelector selector = new TSMUI.ModelObjectSelector();
+                    ModelObjectEnumerator selectedObjects = selector.GetSelectedObjects();
 
-                    if (dist1 <= tolerancia)
+                    if (selectedObjects.GetSize() == 0)
                     {
-                        T3D.Point p1 = Projection.PointToLine(viga.StartPoint, alignLine);
-                        viga.StartPoint = new T3D.Point(p1.X, p1.Y, viga.StartPoint.Z);
-                        if (!viga.Modify())
-                        {
-                            count++;
-                        }
+                        MessageBox.Show("Selecione pelo menos um objeto.");
+                        return;
                     }
-                    if (dist2 <= tolerancia)
+                    T3D.Point ponto = picker.PickPoint("Selecione o primeiro ponto.");
+                    T3D.Vector z = new Vector(0, 0, 1);
+                    Line alignLine = new Line(ponto, z);
+
+                    Beam viga = null;
+
+                    while (selectedObjects.MoveNext())
                     {
-                        T3D.Point p1 = Projection.PointToLine(viga.StartPoint, alignLine);
-                        viga.EndPoint = new T3D.Point(p1.X, p1.Y, viga.EndPoint.Z);
-                        if (!viga.Modify())
+                        viga = selectedObjects.Current as Beam;
+                        if (viga != null)
                         {
-                            count++;
+                            double dist1 = Distance.PointToLine(viga.StartPoint, alignLine);
+                            double dist2 = Distance.PointToLine(viga.EndPoint, alignLine);
+
+                            if (dist1 <= tolerancia)
+                            {
+                                T3D.Point p1 = Projection.PointToLine(viga.StartPoint, alignLine);
+                                viga.StartPoint = new T3D.Point(p1.X, p1.Y, viga.StartPoint.Z);
+                                if (!viga.Modify())
+                                {
+                                    count++;
+                                }
+                            }
+                            if (dist2 <= tolerancia)
+                            {
+                                T3D.Point p1 = Projection.PointToLine(viga.StartPoint, alignLine);
+                                viga.EndPoint = new T3D.Point(p1.X, p1.Y, viga.EndPoint.Z);
+                                if (!viga.Modify())
+                                {
+                                    count++;
+                                }
+                            }
                         }
+
                     }
+                    model.CommitChanges();
                 }
-
-            }
-            model.CommitChanges();
+                catch
+                {
+                    keepgoing = false;
+                    Operation.DisplayPrompt("Cancelado");
+                }
+                }
 
             if (count > 0)
             {
@@ -201,9 +211,8 @@ namespace HandleAlign
             }
             else
             {
-                MessageBox.Show("Objetos alinhados com sucesso.");
+                Operation.DisplayPrompt("Objetos alinhados com sucesso.");
             }
         }
     }
-
 }

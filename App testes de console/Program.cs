@@ -6,58 +6,132 @@ using System.Threading.Tasks;
 using System.Collections;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Solid;
-using Tekla.Structures.Model;
+using TSM=Tekla.Structures.Model;
 using Tekla.Structures.Model.Operations;
 using TSMUI = Tekla.Structures.Model.UI;
 using TSG = Tekla.Structures.Geometry3d;
+using Tekla.Structures.Model;
+using System.Net.Http;
+using Tekla.Structures.Drawing.UI;
+using Tekla.Structures.Model.UI;
+
+
+
 
 namespace App_testes_de_console
 {
     internal class Program
     {
+
+        //static void Main(string[] args)
+        //{
+        //    while (true)
+        //    {
+        //        Model model = new Model();
+        //        Console.WriteLine("Selecione as peças");
+        //        Console.ReadKey();
+
+        //        TSMUI.ModelObjectSelector selector = new TSMUI.ModelObjectSelector();
+        //        ModelObjectEnumerator Selecionados = selector.GetSelectedObjects();
+
+
+        //        if (Selecionados.GetSize() == 0)
+        //        {
+        //            Console.WriteLine("Nenhum objeto selecionado");
+        //            continue;
+        //        }
+        //        Beam beam = null;
+        //        while (Selecionados.MoveNext())
+        //        {
+        //            beam = Selecionados.Current as Beam;
+
+        //            Assembly montagem = beam.GetAssembly();
+        //            Console.WriteLine($"Montagem: {montagem.AssemblyNumber.Prefix}.{montagem.AssemblyNumber.StartNumber}");
+
+        //            if (montagem.SetMainPart(beam))
+        //            {
+        //                Console.WriteLine("Montagem modificada");
+        //            }
+        //            else
+        //            {
+        //                Console.WriteLine("Modificação Falhou");
+        //            }
+        //            montagem.Modify();
+        //        }
+        //        model.CommitChanges();
+
+        //    }
+        //}
+
         static void Main(string[] args)
         {
-            Model model = new Model();
-            //TSMUI.ModelObjectSelector selector = new TSMUI.ModelObjectSelector();
-            TSMUI.Picker picker = new TSMUI.Picker();
-            int facecount = 0;
-            int loopcount = 0;
 
-            Beam viga = picker.PickObject(TSMUI.Picker.PickObjectEnum.PICK_ONE_OBJECT, "Selecione OBjeto") as Beam;
-            Solid solido = viga.GetSolid(); 
-            FaceEnumerator faces = solido.GetFaceEnumerator();
+                Model model = new Model();
+                Console.WriteLine("Nível Absoluto");
+                double nivel = Convert.ToDouble(Console.ReadLine());
 
-            while (faces.MoveNext())
-            {
-                Face face = faces.Current;
-                LoopEnumerator loops = face.GetLoopEnumerator();
-                facecount++;
-                double area = 0;
+                TSMUI.ModelObjectSelector selector = new TSMUI.ModelObjectSelector();
+                ModelObjectEnumerator Selecionados = selector.GetSelectedObjects();
 
-                while (loops.MoveNext())
+
+                if (Selecionados.GetSize() == 0)
                 {
-                    List<TSG.Point> pontosLoop = new List<TSG.Point>();
-                    Loop loop = loops.Current;
-                    VertexEnumerator vertexes = loop.GetVertexEnumerator();
-                    loopcount++;
-                    while(vertexes.MoveNext())
-                    {
-                        TSG.Point ponto = vertexes.Current;
-                        if (!pontosLoop.Contains(ponto))
-                            pontosLoop.Add(ponto);
-                    }
-                    double arealoop = Math.Abs(Distance.PointToPoint(pontosLoop[0], pontosLoop[1]) * Distance.PointToPoint(pontosLoop[1], pontosLoop[2]));
-                    Console.WriteLine($"Área loop: {arealoop}");
-                    if (arealoop > area) area = arealoop;
+                    Console.WriteLine("Nenhum objeto selecionado");
+                    return;
                 }
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("----------------------");
-                Console.WriteLine($"Area da face = {area}");
-                Console.WriteLine("----------------------");
-                Console.ResetColor();
-            }
-            Console.WriteLine($"Faces = {facecount}\nLoops = {loopcount}");
+
+                Beam beam = null;
+                while (Selecionados.MoveNext())
+                {
+                    beam = Selecionados.Current as Beam;
+                    beam.StartPoint = new Point(beam.StartPoint.X, beam.StartPoint.Y, nivel);
+                    beam.EndPoint = new Point(beam.EndPoint.X, beam.EndPoint.Y, nivel);
+                    beam.Modify();
+                }
+                Console.WriteLine("Vigas Ajustadas");
+                model.CommitChanges();
             
         }
+
+
+        //static void Main(string[] args)
+        //{
+        //    while (true)
+        //    {
+        //        Model model = new Model();
+        //        Console.WriteLine("Selecione as peças");
+        //        Console.ReadKey();
+
+        //        TSMUI.ModelObjectSelector selector = new TSMUI.ModelObjectSelector();
+        //        ModelObjectEnumerator Selecionados = selector.GetSelectedObjects();
+
+
+        //        if (Selecionados.GetSize() == 0)
+        //        {
+        //            Console.WriteLine("Nenhum objeto selecionado");
+        //            continue;
+        //        }
+        //        Beam beam = null;
+        //        while (Selecionados.MoveNext())
+        //        {
+        //            beam = Selecionados.Current as Beam;
+
+        //            Assembly montagem = beam.GetAssembly();
+        //            Console.WriteLine($"Montagem: {montagem.AssemblyNumber.Prefix}.{montagem.AssemblyNumber.StartNumber}");
+
+        //            if (montagem.SetMainPart(beam))
+        //            {
+        //                Console.WriteLine("Montagem modificada");
+        //            }
+        //            else
+        //            {
+        //                Console.WriteLine("Modificação Falhou");
+        //            }
+        //            montagem.Modify();
+        //        }
+        //        model.CommitChanges();
+
+        //    }
+        //}
     }
 }

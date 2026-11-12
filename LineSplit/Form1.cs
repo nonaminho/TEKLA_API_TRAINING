@@ -27,26 +27,37 @@ namespace LineSplit
 
         private void button_Cut_Click(object sender, EventArgs e)
         {
-            T3D.Point ponto1 = picker.PickPoint("Selecione o primeiro ponto.");
-            T3D.Point ponto2 = picker.PickPoint("Selecione o segundo ponto.");
-            Line cutline = new Line(ponto1, ponto2);
-            
-
-            TSMUI.ModelObjectSelector selector = new TSMUI.ModelObjectSelector();
-            ModelObjectEnumerator selectedObjects = selector.GetSelectedObjects();
-
-            Beam beam = null;
-            while (selectedObjects.MoveNext())
+            while (true)
             {
-                beam = selectedObjects.Current as Beam;
-                if (beam != null)
+                try
                 {
-                    Line beamline = new Line(beam.StartPoint, beam.EndPoint);
-                    T3D.Point cutPoint = Intersection.LineToLine(beamline, cutline).Point1;
-                    Beam newbeam = Operation.Split(beam, cutPoint);
+                    T3D.Point ponto1 = picker.PickPoint("Selecione o primeiro ponto.");
+                    T3D.Point ponto2 = picker.PickPoint("Selecione o segundo ponto.");
+                    Line cutline = new Line(ponto1, ponto2);
+
+
+                TSMUI.ModelObjectSelector selector = new TSMUI.ModelObjectSelector();
+                ModelObjectEnumerator selectedObjects = selector.GetSelectedObjects();
+
+                Beam beam = null;
+                while (selectedObjects.MoveNext())
+                {
+                    beam = selectedObjects.Current as Beam;
+                    if (beam != null)
+                    {
+                        Line beamline = new Line(beam.StartPoint, beam.EndPoint);
+                        T3D.Point cutPoint = Intersection.LineToLine(beamline, cutline).Point1;
+                        Beam newbeam = Operation.Split(beam, cutPoint);
+                    }
+                }
+                model.CommitChanges();
+                }
+                catch (Exception ex)
+                {
+                    Operation.DisplayPrompt("User Cancel");
+                    break;
                 }
             }
-            model.CommitChanges();
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -53,11 +53,12 @@ namespace HandleAlign
                 beam = selectedObjects.Current as Beam;
                 if (beam != null)
                 {
-                    double pZ = beam.StartPoint.Z;
+                    double psZ = beam.StartPoint.Z;
+                    double peZ = beam.EndPoint.Z;
                     T3D.Point p1 = Projection.PointToLine(beam.StartPoint, alignLine);
                     T3D.Point p2 = Projection.PointToLine(beam.EndPoint, alignLine);
-                    beam.StartPoint = new T3D.Point(p1.X, p1.Y, pZ);
-                    beam.EndPoint = new T3D.Point(p2.X, p2.Y, pZ);
+                    beam.StartPoint = new T3D.Point(p1.X, p1.Y, psZ);
+                    beam.EndPoint = new T3D.Point(p2.X, p2.Y, peZ);
                     if (!beam.Modify())
                     {
                         count++;
@@ -124,8 +125,8 @@ namespace HandleAlign
                     }
                     else if (dist2 <= tolerancia)
                     {
-                        T3D.Point p1 = Projection.PointToLine(viga.StartPoint, col);
-                        viga.EndPoint = new T3D.Point(p1.X, p1.Y, viga.StartPoint.Z);
+                        T3D.Point p1 = Projection.PointToLine(viga.EndPoint, col);
+                        viga.EndPoint = new T3D.Point(p1.X, p1.Y, viga.EndPoint.Z);
                         if (!viga.Modify())
                         {
                             count++;

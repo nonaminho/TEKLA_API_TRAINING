@@ -21,4 +21,6 @@ https://developer.tekla.com/doc/tekla-structures/2024/tekla-structures-20398
 
 => Anteriores: Rotate with reference, Contra-Flecha, Line Split, Spaced Beams
 
-**02/2025** - Handle Align - Ferramenta de alinhamendo de handles. Garante qualidade do modelo importado do Strap
+**02/2026** - Handle Align - Ferramenta de alinhamendo de handles. Garante qualidade do modelo importado do Strap
+
+**03/2026** - Conversor de cantoneira para chapa dobrada - Ferramenta que converte perfis L em chapa dobrada para facilitar a fabricação das peças
